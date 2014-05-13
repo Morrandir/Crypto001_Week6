@@ -15,17 +15,23 @@ N2 += '2428844841839353281972988531310511738648965962582821502504990264452'
 N2 += '1008852816733037111422964210278402893076574586452336833570778346897'
 N2 += '15838646088239640236866252211790085787877'
 
-diff = 2 ** 20
+N3 = '72006226374735042527956443552558373833808445147399984182665305798191'
+N3 += '63556901883377904234086641876639384851752649940178970835240791356868'
+N3 += '77441155132015188279331812309091996246361896836573643119174094961348'
+N3 += '52463970788523879939683923036467667022162701835329944324119217381272'
+N3 += '9276147530748597302192751375739387929'
+
+diff = 1
 
 gmpy2.set_context(gmpy2.context(precision = 3000))
 
-N = mpz(N2)
-lowerBound = mpz(gmpy2.ceil(gmpy2.sqrt(N)))
+N = mpz(N3)
+lowerBound = mpz(gmpy2.ceil(gmpy2.sqrt(gmpy2.mul(6, N))))
 
 for i in range(0, diff):
     A = gmpy2.add(lowerBound, i)
     SquareA = gmpy2.square(A)
     if gmpy2.is_square(gmpy2.sub(SquareA, N)):
         x = mpz(gmpy2.sqrt(gmpy2.sub(SquareA, N)))
-        print 'p = ' + str(gmpy2.sub(A, x))
-        print 'q = ' + str(gmpy2.add(A, x))
+        print 'p = ' + str(gmpy2.div(gmpy2.sub(A, x), 3))
+        print 'q = ' + str(gmpy2.div(gmpy2.add(A, x), 2))
