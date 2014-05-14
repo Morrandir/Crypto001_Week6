@@ -15,9 +15,9 @@ N = mpz(N1)
 A = gmpy2.ceil(gmpy2.sqrt(N))
 SquareA = gmpy2.square(A)
 
-if gmpy2.is_square(gmpy2.sub(SquareA, N)):
+if gmpy2.is_square(mpz(gmpy2.sub(SquareA, N))):
     x = gmpy2.sqrt(gmpy2.sub(SquareA, N))
-    print 'p = ' + str(gmpy2.sub(A, x))
-    print 'q = ' + str(gmpy2.add(A, x))
+    print 'p = ' + str(mpz(gmpy2.sub(A, x)))
+    print 'q = ' + str(mpz(gmpy2.add(A, x)))
 else:
     print 'x is not square, must be wrong...'

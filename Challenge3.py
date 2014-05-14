@@ -1,5 +1,6 @@
 import gmpy2
 from gmpy2 import mpz
+from gmpy2 import mpfr
 
 __author__ = 'Qubo'
 
@@ -26,12 +27,15 @@ diff = 1
 gmpy2.set_context(gmpy2.context(precision = 3000))
 
 N = mpz(N3)
-lowerBound = mpz(gmpy2.ceil(gmpy2.sqrt(gmpy2.mul(6, N))))
+lowerBound = mpz(gmpy2.ceil(gmpy2.mul(2, gmpy2.sqrt(gmpy2.mul(6, N)))))
 
 for i in range(0, diff):
-    A = gmpy2.add(lowerBound, i)
+    A = gmpy2.div(mpfr(gmpy2.add(lowerBound, i)), 2)
     SquareA = gmpy2.square(A)
-    if gmpy2.is_square(gmpy2.sub(SquareA, N)):
-        x = mpz(gmpy2.sqrt(gmpy2.sub(SquareA, N)))
-        print 'p = ' + str(gmpy2.div(gmpy2.sub(A, x), 3))
-        print 'q = ' + str(gmpy2.div(gmpy2.add(A, x), 2))
+    x = gmpy2.sqrt(gmpy2.sub(SquareA, gmpy2.mul(6, N)))
+    if gmpy2.is_integer(gmpy2.div(gmpy2.sub(A, x), 3)) and gmpy2.is_integer(gmpy2.div(gmpy2.add(A, x), 2)):
+        print 'p = ' + str(mpz(gmpy2.div(gmpy2.sub(A, x), 3)))
+        print 'q = ' + str(mpz(gmpy2.div(gmpy2.add(A, x), 2)))
+    else:
+        print 'p = ' + str(mpz(gmpy2.div(gmpy2.add(A, x), 3)))
+        print 'q = ' + str(mpz(gmpy2.div(gmpy2.sub(A, x), 2)))
